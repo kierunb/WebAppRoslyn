@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -35,6 +37,11 @@ namespace WebAppRoslyn.Controllers
                 new AuthenticationHeaderValue("Bearer", "AbCdEf123456");
 
             return Ok();
+        }
+        public void WriteToDirectory(ZipArchiveEntry entry, string destDirectory)
+        {
+            string destFileName = Path.Combine(destDirectory, entry.FullName);
+            entry.ExtractToFile(destFileName);
         }
     }
 }
